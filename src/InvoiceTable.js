@@ -25,7 +25,7 @@ const style = {
 
 const InvoiceTable = ({data}) => {
   const [creditNote, setCreditNote] = useState('');
-  const [selectedCreditNote, setSelectedCreditNote] = useState('')
+  const [selectedCreditNote, setSelectedCreditNote] = useState('');
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
@@ -80,7 +80,10 @@ const InvoiceTable = ({data}) => {
                 >
                   <TableCell align="right">
                     <input 
-                      onClick={() => setCreditNote(() => row.id)}
+                      onClick={() => {
+                        setCreditNote(() => row.id);
+                        setSelectedCreditNote(() => row.id)
+                      }}
                       type="radio" 
                       value="Checked" 
                       checked={creditNote === row.id ? true : undefined}
@@ -117,9 +120,10 @@ const InvoiceTable = ({data}) => {
                     >
                       <TableCell align="right">
                         <input 
-                          onClick={() => setSelectedCreditNote(() => row.id)}
-                          type="radio" 
+                          onClick={() => setSelectedCreditNote((prevCreditNotes) => row.id)}
+                          type="checkbox" 
                           value="Checked" 
+                          checked={selectedCreditNote === row.id ? true : undefined}
                           name={row.id} 
                         /> 
                       </TableCell>
